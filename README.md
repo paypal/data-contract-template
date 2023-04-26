@@ -1,1 +1,3 @@
-# data-contract-template
+# Template for Data Contract
+
+
