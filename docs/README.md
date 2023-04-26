@@ -7,7 +7,7 @@
 
 ### Example
 
-```yaml
+```YAML
 # this a sample YAML file.  it contains a few columns from a single table in a dataset 
 # to serve as an example of what the file contains.  if this were an actual file, it 
 # would have every column of every table within the dataset
