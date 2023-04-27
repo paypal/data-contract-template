@@ -29,5 +29,5 @@ PayPal uses data contracts in many way, but this [article](https://medium.com/pa
 ## Contributing to the project
 Check out the [CONTRIBUTING](https://github.com/paypal/data-contract-template/blob/main/CONTRIBUTING.md) file.
 
-If you are a PayPal employee or contractor, contact me via Slack at @jgp.
+If you are a PayPal employee or contractor, contact us via Slack at `#rosewall-help`.
 
