@@ -1,5 +1,8 @@
 # Data Contract Template
 
+## Executive summary
+This document describes the keys and values expected in a YAML data contract. It is divided in multiple sections: [demographics](#Demographics), [dataset & schema](#Dataset-&-schema), [data quality](#Data-quality), [pricing](#Pricing), [stakeholders](#Stakeholders), [roles](#Roles), [service-level agreement](#Service-level-agreement), and [other properties](#Other-properties). Each section starts with at least an example followed by definition of the each field/key.
+
 ## Table of content
 * [Demographics](#Demographics)
 * [Dataset & schema](#Dataset-&-schema)
@@ -10,42 +13,47 @@
 * [Service-level agreement](#Service-level-agreement)
 * [Other properties](#Other-properties)
 
+## Notes
+* This contract is containing example values, we reviewed very carefully the consistency of those values, but we cannot guarantee that there are no errors. If you spot one, please raise an [issue](https://github.com/paypal/data-contract-template/issues).
+* Some fields have `null` value: even if it is equivalent to not having the field in the contract, we wanted to have the field for illustration purpose.
+* This contract leverages BigQuery but should be **platform agnostic**. If you think it is not the case, please raise an [issue](https://github.com/paypal/data-contract-template/issues).
+
 ## Demographics
-Thisa section contains general information about the contract.
+Thia section contains general information about the contract.
 
 ### Example
 
 ```YAML
 # What's this data  identification?
-datasetDomain: seller_uds   # Domain
-quantumName: my quantum     # Data product name
+datasetDomain: seller # Domain
+quantumName: my quantum # Data product name
 userConsumptionMode: Analytical
-version: 1.1    # Together on one line with status
-status: current # Together
+version: 1.1.0 # Version follows semantic versioning
+status: current
 uuid: 53581432-6c55-4ba2-a65f-72344a91553a
 
 # Lots of information
 description:
-  purpose: Views built on top of pp_tables
+  purpose: Views built on top of the seller tables.
   limitations: null
   usage: null
 tenant: paypal
 
 # Getting support
-productDl:
-productSlackChannel:
-productFeedbackUrl:
+productDl: product-dl@paypal.com
+productSlackChannel: '#product-help'
+productFeedbackUrl: null
 
 # Physical parts / GCP / BigQuery specific
 sourcePlatform: googleCloudPlatform
 sourceSystem: bigQuery
-datasetProject: pypl-edw     # BQ dataset
-datasetName: pp_access_views # BQ dataset
+datasetProject: edw # BQ dataset
+datasetName: access_views # BQ dataset
 
 kind: virtualDataset
 type: tables
 
-# Physical 
+# Physical access
 driver: null
 driverVersion: null
 server: null
@@ -55,7 +63,7 @@ password: '${env.password}'
 schedulerAppName: name_coming_from_scheduler # NEW 2.1.0 Required if you want to schedule stuff, comes from DataALM.
 
 # Data Quality
-quality: null
+quality: null # See more information below
 
 # Tags
 tags: null
@@ -64,35 +72,35 @@ tags: null
 |Key|UX label|Required|Description|
 | --- | --- | --- | --- | 
 | version|Version|Yes|Current version of the data contract|
-| uuid|Identifier|Yes| A unique identifier used to reduce the risk of dataset name collisions; initially the UUID will be created using a UUID generator tool (such as https://www.uuidgenerator.net/). However, we may want to develop a method that accepts a seed value using a combination of fields–such as name, kind and source–to create a repeatable value.|
+| uuid|Identifier|Yes| A unique identifier used to reduce the risk of dataset name collisions; initially the UUID will be created using a UUID generator tool ([example](https://www.uuidgenerator.net/)). However, we may want to develop a method that accepts a seed value using a combination of fields–such as name, kind and source–to create a repeatable value.|
 |username|Username|Yes|User credentials for connecting to the dataset; how the credentials will be stored/passed is outside of the scope of the contract.|
-|userConsumptionMode|Consumption mode|No|List of data modes for which the dataset may be used.  Expected sample values might be Analytical or Operational. Note: in the future, this will probably be replaced by ports.|
+|userConsumptionMode|Consumption mode|No|List of data modes for which the dataset may be used.  Expected sample values might be Analytical or Operational. <br/>Note: in the future, this will probably be replaced by ports.|
 |type|Type|Yes|Identifies the types of objects in the dataset.  For BigQuery the expected value would be tables.
-tenant|Tenant|No|Indicates the property the data is primarily associated with.  Expected sample values might be PayPal, Venmo, PPWC, etc.|
-tags|Tags|No|a list of tags that may be assigned to the dataset, table or column; the tags keyword may appear at any level
+tenant|Tenant|No|Indicates the property the data is primarily associated with. Value is case insensitive. For PayPal, the expected sample values might be PayPal, Venmo, PPWC, etc.|
+tags|Tags|No|a list of tags that may be assigned to the dataset, table or column; the `tags` keyword may appear at any level.
 status|Status|Yes|Current status of the dataset.
 sourceSystem|Source system|Yes|The system where the dataset resides.  Expected value is bigQuery
 sourcePlatform|Source platform|Yes|The platform where the dataset resides. Expected value is googleCloudPlatform
-server|Server|Yes|The server where the dataset resides
+server|Server|Yes|The server where the dataset resides.|
 quantumName|Quantum name|Yes|The name of the data quantum or data product.
 productSlackChannel|Support Slack channel|No|Slack channel of the team responsible for maintaining the dataset.
-productFeedbackUrl|Feedback URL|No|The url for submitting feedback to the team responsible for maintaining the dataset
-productDl|E-mail distribution list|No|The email DL of the persons or team responsible for maintaining the dataset.
-password|Password|Yes|User credentials for connecting to the dataset; how the credentials will be stored/passed is TBD
-kind|Kind|Yes|The kind of Rosewall dataset being cataloged; Expected values are virtualDataset or managedDataset
-driverVersion|Driver version|Yes|The version of the connection driver to be used to connect to the dataset
-driver|Driver|Yes|The connection driver required to connect to the dataset
-description.usage|Usage|No|intended usage of the dataset, table or column (depending on the level); the key may appear at the dataset, table or column level
-description.purpose|Purpose|No|Purpose of the dataset, table or column (depending on the level); the key may appear at the dataset, table or column level
-description.limitations|Limitations|No|Limitations of the dataset, table or column (depending on the level); the key may appear at the dataset, table or column level
-description|N/A|No|Object
-datasetProject|GCP project|Yes|GCP BigQuery dataset project name.
-datasetName|BigQuery dataset name|Yes|GCP BigQuery dataset name.
+productFeedbackUrl|Feedback URL|No|The URL for submitting feedback to the team responsible for maintaining the dataset.|
+productDl|E-mail distribution list|No|The email distribution list (DL) of the persons or team responsible for maintaining the dataset.
+password|Password|Yes|User credentials for connecting to the dataset; how the credentials will be stored/passed is out of the scope of this contract.
+kind|Kind|Yes|The kind of Rosewall dataset being cataloged; Expected values are `virtualDataset` or `managedDataset`.
+driverVersion|Driver version|Yes|The version of the connection driver to be used to connect to the dataset.|
+driver|Driver|Yes|The connection driver required to connect to the dataset.|
+description.usage|Usage|No|intended usage of the dataset, table, or column (depending on the level); the key may appear at the dataset, table, or column level.|
+description.purpose|Purpose|No|Purpose of the dataset, table or column (depending on the level); the key may appear at the dataset, table, or column level.|
+description.limitations|Limitations|No|Limitations of the dataset, table or column (depending on the level); the key may appear at the dataset, table, or column level.|
+description|N/A|No|Object.|
+datasetProject|GCP project|Yes|GCP BigQuery dataset project name.|
+datasetName|BigQuery dataset name|Yes|GCP BigQuery dataset name.|
 |datasetDomain|Domain dataset|No|Name of the logical domain dataset the contract describes. This field is only required for output data contracts. Examples: `imdb_ds_aggregate`, `receiver_profile_out`,  `transaction_profile_out`.|
 database|Database|Yes|The database where the dataset resides.|
 
 ## Dataset & schema
-This section describes the schema and data quality of the data contract.
+This section describes the dataset and the schema of the data contract. It is the support for data quality, which is detailed in the next section.
 
 ### Example
 
@@ -133,7 +141,7 @@ dataset:
         logicalType: string
         physicalType: varchar(18)
         isNullable: false
-        description: null
+        description: A description for column rcvr_id.
         partitionStatus: false
         clusterStatus: true
         criticalDataElementStatus: false
@@ -154,9 +162,9 @@ dataset:
         classification: null
         authoritativeDefinitions:
           - url: https://collibra.com/asset/742b358f-71a5-4ab1-bda4-dcdba9418c25
-            type: business definition
+            type: Business definition
           - url: https://github.com/myorg/myrepo
-            type: source code
+            type: Reference implementation
         encryptedColumnName: rcvr_cntry_code_encrypted
 ```
 
@@ -189,11 +197,12 @@ dataset.columns.criticalDataElementStatus||No|True or false indicator; If elemen
 dataset.columns.tags||No|A list of tags that may be assigned to the dataset, table or column; the tags keyword may appear at any level.|
 
 ## Data quality 
+This section describes data quality rules & parameters. They are tightly linked to the schema described in the previous section.
 
 ### Example of data quality at the dataset level
 
 Note:
-* This example relies on a data quality tool called Elevate. Ity should be easily transformed to any other tool.
+* This example relies on a data quality tool called Elevate. It should be easily transformed to any other tool. If you have questions, please raise an [issue](https://github.com/paypal/data-contract-template/issues).
 * The data contract template has a provision for supporting multiple data quality tools.
 
 ```YAML
@@ -295,8 +304,7 @@ dataset:
 |quality.customProperties||No|Additional properties required for rule execution. |
 
 ## Pricing
-
-Pricing is experimental in v2.1.1 of the data contract.
+This section covers pricing when you bill your customer for using this data product. Pricing is experimental in v2.1.1 of the data contract.
 
 ### Example
 
@@ -317,6 +325,7 @@ price.priceCurrency||No|Currency of the subscription price in `price.priceAmount
 price.priceUnit||No|The unit of measure for calculating cost. Examples megabyte, gigabyte.|
 
 ## Stakeholders
+This section lists stakeholders and the history of their relation with this data contract.
 
 ### Example
 ```YAML
@@ -345,38 +354,38 @@ The UX label is the label used in the UI and other user experiences. It is not l
 |Key|UX label|Required|Description|
 | --- | --- | --- | --- |
 stakeholders||No|Array
-stakeholders.username||No|The stakeholder's username
-stakeholders.role||No|The stakeholder's job role; Examples might be owner, data steward
-stakeholders.dateIn||No|The date when the user became a stakeholder
-stakeholders.dateOut||No|The date when the user ceased to be a stakeholder
-stakeholders.replacedByUsername||No|The username of the user who replaced the stakeholder
+stakeholders.username||No|The stakeholder's username or email.|
+stakeholders.role||No|The stakeholder's job role; Examples might be owner, data steward. There is no limit on the role.|
+stakeholders.dateIn||No|The date when the user became a stakeholder|
+stakeholders.dateOut||No|The date when the user ceased to be a stakeholder|
+stakeholders.replacedByUsername||No|The username of the user who replaced the stakeholder|
 
 ## Roles
+This section lists the roles that a consumer may need to access the dataset depending on the type of access they require.
 
 ### Example
 
 ```YAML
 roles:
-  - role: pp_gcp_prod_console_pp_p_edp_bq_microstrategy_user_opr
+  - role: microstrategy_user_opr
     access: read
     firstLevelApprovers: Reporting Manager
-    secondLevelApprovers: 'vinganesan,shisivaraman'
-  - role: pp_gcp_prod_console_pp_p_edp_bq_queryman_user_opr
+    secondLevelApprovers: 'mandolorian'
+  - role: bq_queryman_user_opr
     access: read
     firstLevelApprovers: Reporting Manager
     secondLevelApprovers: na
-  - role: pp_gcp_prod_console_pp_p_edp_bq_risk_data_access_opr
+  - role: risk_data_access_opr
     access: read
     firstLevelApprovers: Reporting Manager
-    secondLevelApprovers: 'grubby,aborkovski'
-  - role: pp_gcp_prod_console_pp_p_edp_bq_unica_user_opr
-    access: read
+    secondLevelApprovers: 'dathvador'
+  - role: bq_unica_user_opr
+    access: write
     firstLevelApprovers: Reporting Manager
-    secondLevelApprovers: 'mcherian,vinganesan'
+    secondLevelApprovers: 'mickey'
 ```
 
 ### Definitions
-The UX label is the label used in the UI and other user experiences. It is not limited to BlueRacket. 
 
 |Key|UX label|Required|Description|
 | --- | --- | --- | --- |
@@ -388,7 +397,7 @@ roles.secondLevelApprovers||No|the name(s) of the second level approver(s) of th
 
 
 ## Service-level agreement
-The service-level agreements have been added in version v2.1.0.
+This section describes the service-level agreements (SLA). SLA have been extended in version v2.1.0.
 
 * Use the `Table.Column` to indicate the number to do the checks on, as in `SELECT txn_ref_dt FROM tab1`.
 * Separate multiple table.columns by a comma, as in `table1.col1`, `table2.col1`, `table1.col2`.
@@ -428,14 +437,15 @@ slaProperties:
 |Key|UX label|Required|Description|
 | --- | --- | --- | --- |
 |slaDefaultColumn|Default SLA column(s)|No|Columns (using the Table.Column notation) to do the checks on. By default, it is the partition column.|
-|slaProperties|SLA|No|A list of key/value pairs for sla specific properties.|
+|slaProperties|SLA|No|A list of key/value pairs for SLA specific properties. There is no limit on the type of properties (more details to come).|
 |slaProperties.property|Property|Yes|Specific property in SLA, check the periodic table. May requires units (more details to come).|
 |slaProperties.value|Value|Yes|Agreement value.|
-|slaProperties.unit|Unit|No - unless needed by property|**d**, day, days for days; **y**, yr, years for years, etc.|
+|slaProperties.unit|Unit|No - unless needed by property|**d**, day, days for days; **y**, yr, years for years, etc. Units use the ISO standard.|
 |slaProperties.column|Column(s)|No|Column(s) to check on. Multiple columns should be extremely rare and, if so, separated by commas.|
 |slaProperties.driver|Driver|No|Describes the importance of the SLA from the list of: regulatory, analytics, operational.|
 
 ## Other properties
+This section covers other properties you may find in a data contract.
 
 ### Example
 
