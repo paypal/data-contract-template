@@ -3,6 +3,12 @@
 ## Table of content
 * [Demographics](#Demographics)
 * [Dataset & schema](#Dataset-&-schema)
+* [Data quality](#Data-quality)
+* [Pricing](#Pricing)
+* [Stakeholders](#Stakeholders)
+* [Roles](#Roles)
+* [Service-level agreement](#Service-level-agreement)
+* [Other properties](#Other-properties)
 
 ## Demographics
 Thisa section contains general information about the contract.
@@ -273,21 +279,186 @@ dataset:
 
 |Key|UX label|Required|Description|
 | --- | --- | --- | --- | 
-quality||No|Quality tag with all the relevant information for rule setup and execution.|
-quality.code||No|The Rosewall data quality code(s) indicating which quality checks need to be performed at the dataset, table or column level; The quality keyword may appear at any level; Some quality checks require parameters such so the check can be completed (eg, list of fields used to identify a distinct row) therefore some quality checks may be followed by a single value or an array; See appendix for link to quality checks.
-quality.templateName||Yes|The template name which indicates what is the equivalent template from the tool. 
-quality.description||No|Describe the quality check to be completed.
-quality.toolName||Yes|Name of the tool used to complete the quality check; Most will be Elevate initially.|
-quality.toolRuleName||No|Name of the quality tool's rule created to complete the quality check.|
-quality.dimension||No|The key performance indicator (KPI) or dimension for data quality.|
-quality.columns||No|List of columns to be used in the quality check
-quality.column||No|To be used in lieu of quality.columns when only a single column is required for the quality check.|
-quality.type||No|The type of quality check.|
-quality.severity||No|The severance of the quality rule.|
-quality.businessImpact||No|Consequences of the rule failure.|
-quality.scheduleCronExpression||No|Rule execution schedule details.|
-quality.customProperties||No|Additional properties required for rule execution. |
+|quality||No|Quality tag with all the relevant information for rule setup and execution.|
+|quality.code||No|The Rosewall data quality code(s) indicating which quality checks need to be performed at the dataset, table or column level; The quality keyword may appear at any level; Some quality checks require parameters such so the check can be completed (eg, list of fields used to identify a distinct row) therefore some quality checks may be followed by a single value or an array; See appendix for link to quality checks.
+|quality.templateName||Yes|The template name which indicates what is the equivalent template from the tool. 
+|quality.description||No|Describe the quality check to be completed.
+|quality.toolName||Yes|Name of the tool used to complete the quality check; Most will be Elevate initially.|
+|quality.toolRuleName||No|Name of the quality tool's rule created to complete the |quality check.|
+|quality.dimension||No|The key performance indicator (KPI) or dimension for data quality.|
+|quality.columns||No|List of columns to be used in the quality check
+|quality.column||No|To be used in lieu of quality.columns when only a single column is required for the quality check.|
+|quality.type||No|The type of quality check.|
+|quality.severity||No|The severance of the quality rule.|
+|quality.businessImpact||No|Consequences of the rule failure.|
+|quality.scheduleCronExpression||No|Rule execution schedule details.|
+|quality.customProperties||No|Additional properties required for rule execution. |
+
+## Pricing
+
+Pricing is experimental in v2.1.1 of the data contract.
+
+### Example
+
+```YAML
+price:
+  priceAmount: 9.95
+  priceCurrency: USD
+  priceUnit: megabyte
+```
+
+### Definitions
+
+|Key|UX label|Required|Description|
+| --- | --- | --- | --- | 
+price||No|Object
+price.priceAmount||No|Subscription price per unit of measure in `priceUnit`.|
+price.priceCurrency||No|Currency of the subscription price in `price.priceAmount`.|
+price.priceUnit||No|The unit of measure for calculating cost. Examples megabyte, gigabyte.|
+
+## Stakeholders
+
+### Example
+```YAML
+stakeholders:
+  - username: ceastwood
+    role: Data Scientist
+    dateIn: 2022-08-02
+    dateOut: 2022-10-01
+    replacedByUsername: mhopper
+  - username: mhopper
+    role: Data Scientist
+    dateIn: 2022-10-01
+    dateOut: null
+    replacedByUsername: null
+  - username: daustin
+    role: Owner
+    comment: Keeper of the grail
+    dateIn: 2022-10-01
+    dateOut: null
+    replacedByUsername: null
+```
+
+### Definitions
+The UX label is the label used in the UI and other user experiences. It is not limited to BlueRacket.
+
+|Key|UX label|Required|Description|
+| --- | --- | --- | --- |
+stakeholders||No|Array
+stakeholders.username||No|The stakeholder's username
+stakeholders.role||No|The stakeholder's job role; Examples might be owner, data steward
+stakeholders.dateIn||No|The date when the user became a stakeholder
+stakeholders.dateOut||No|The date when the user ceased to be a stakeholder
+stakeholders.replacedByUsername||No|The username of the user who replaced the stakeholder
+
+## Roles
+
+### Example
+
+```YAML
+roles:
+  - role: pp_gcp_prod_console_pp_p_edp_bq_microstrategy_user_opr
+    access: read
+    firstLevelApprovers: Reporting Manager
+    secondLevelApprovers: 'vinganesan,shisivaraman'
+  - role: pp_gcp_prod_console_pp_p_edp_bq_queryman_user_opr
+    access: read
+    firstLevelApprovers: Reporting Manager
+    secondLevelApprovers: na
+  - role: pp_gcp_prod_console_pp_p_edp_bq_risk_data_access_opr
+    access: read
+    firstLevelApprovers: Reporting Manager
+    secondLevelApprovers: 'grubby,aborkovski'
+  - role: pp_gcp_prod_console_pp_p_edp_bq_unica_user_opr
+    access: read
+    firstLevelApprovers: Reporting Manager
+    secondLevelApprovers: 'mcherian,vinganesan'
+```
+
+### Definitions
+The UX label is the label used in the UI and other user experiences. It is not limited to BlueRacket. 
+
+|Key|UX label|Required|Description|
+| --- | --- | --- | --- |
+roles||Yes|Array. A list of roles that will provide user access to the dataset.|
+roles.role||Yes|name of the IAM role that provides access to the dataset; the value will generally come directly from the "BQ dataset to IAM roles mapping" document.|
+roles.access||Yes|the type of access provided by the IAM role; the value will generally come directly from the "BQ dataset to IAM roles mapping" document.|
+roles.firstLevelApprovers||No|the name(s) of the first level approver(s) of the role; the value will generally come directly from the "BQ dataset to IAM roles mapping" document.|
+roles.secondLevelApprovers||No|the name(s) of the second level approver(s) of the role; the value will generally come directly from the "BQ dataset to IAM roles mapping" document.|
 
 
+## Service-level agreement
+The service-level agreements have been added in version v2.1.0.
+
+* Use the `Table.Column` to indicate the number to do the checks on, as in `SELECT txn_ref_dt FROM tab1`.
+* Separate multiple table.columns by a comma, as in `table1.col1`, `table2.col1`, `table1.col2`.
+* If there is only one table in the contract, the table name is not required.
+
+### Example
+
+```YAML
+slaDefaultColumn: tab1.txn_ref_dt # Optional, default value is partitionColumn.
+slaProperties:
+  - property: latency # Property, see list of values in DP QoS
+    value: 4
+    unit: d # d, day, days for days; y, yr, years for years
+    column: tab1.txn_ref_dt # This would not be needed as it is the same table.column as the default one
+  - property: generalAvailability
+    value: 2022-05-12T09:30:10-08:00
+  - property: endOfSupport
+    value: 2032-05-12T09:30:10-08:00
+  - property: endOfLife
+    value: 2042-05-12T09:30:10-08:00
+  - property: retention
+    value: 3
+    unit: y
+    column: tab1.txn_ref_dt
+  - property: timeOfAvailability
+    value: 09:00-08:00
+    column: tab1.txn_ref_dt
+    driver: regulatory # Describes the importance of the SLA: [regulatory|analytics|operational|...]
+  - property: timeOfAvailability
+    value: 08:00-08:00
+    column: tab1.txn_ref_dt
+    driver: analytics
+```
+
+### Definitions
+
+|Key|UX label|Required|Description|
+| --- | --- | --- | --- |
+|slaDefaultColumn|Default SLA column(s)|No|Columns (using the Table.Column notation) to do the checks on. By default, it is the partition column.|
+|slaProperties|SLA|No|A list of key/value pairs for sla specific properties.|
+|slaProperties.property|Property|Yes|Specific property in SLA, check the periodic table. May requires units (more details to come).|
+|slaProperties.value|Value|Yes|Agreement value.|
+|slaProperties.unit|Unit|No - unless needed by property|**d**, day, days for days; **y**, yr, years for years, etc.|
+|slaProperties.column|Column(s)|No|Column(s) to check on. Multiple columns should be extremely rare and, if so, separated by commas.|
+|slaProperties.driver|Driver|No|Describes the importance of the SLA from the list of: regulatory, analytics, operational.|
+
+## Other properties
+
+### Example
+
+```YAML
+customProperties:
+  - property: refRulesetName
+    value: gcsc.ruleset.name
+  - property: somePropertyName
+    value: property.value
+  - property: dataprocClusterName # Used for specific applications like Elevate
+    value: [cluster name]
+
+systemInstance: someinstance.paypal.com
+contractCreatedTs: 2022-11-15 02:59:43
+```
 
 
+### Definitions
+
+|Key|UX label|Required|Description|
+| --- | --- | --- | --- |
+customProperties||No|A list of key/value pairs for custom properties. Initially created to support the REF ruleset property.
+customProperties.property||No|The name of the key. Names should be in camel case–the same as if they were permanent properties in the contract.
+customProperties.value||No|The value of the key.
+systemInstance||No|System Instance name where the dataset resides.
+contractCreatedTs||No|Timestamp in PST of when the data contract was created.
