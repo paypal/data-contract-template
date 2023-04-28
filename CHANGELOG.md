@@ -2,7 +2,8 @@ This document tracks the history and evolution of the data contract template. It
 
 # v2.1.1 - 2023-04-26 - APPROVED
 
-Open source version.
+* Open source version.
+* Additional value field `valueExt` in SLA.
 
 # v2.1.0 - 2023-03-23 - APPROVED
 

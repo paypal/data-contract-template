@@ -422,6 +422,11 @@ slaProperties:
     value: 3
     unit: y
     column: tab1.txn_ref_dt
+  - property: frequency
+    value: 1
+    valueExt: 1
+    unit: d
+    column: tab1.txn_ref_dt
   - property: timeOfAvailability
     value: 09:00-08:00
     column: tab1.txn_ref_dt
@@ -439,7 +444,8 @@ slaProperties:
 |slaDefaultColumn|Default SLA column(s)|No|Columns (using the Table.Column notation) to do the checks on. By default, it is the partition column.|
 |slaProperties|SLA|No|A list of key/value pairs for SLA specific properties. There is no limit on the type of properties (more details to come).|
 |slaProperties.property|Property|Yes|Specific property in SLA, check the periodic table. May requires units (more details to come).|
-|slaProperties.value|Value|Yes|Agreement value.|
+|slaProperties.value|Value|Yes|Agreement value. The label will change based on the property itself.|
+|slaProperties.valueExt|Extended value|No - unless needed by property|Extended agreement value. The label will change based on the property itself.|
 |slaProperties.unit|Unit|No - unless needed by property|**d**, day, days for days; **y**, yr, years for years, etc. Units use the ISO standard.|
 |slaProperties.column|Column(s)|No|Column(s) to check on. Multiple columns should be extremely rare and, if so, separated by commas.|
 |slaProperties.driver|Driver|No|Describes the importance of the SLA from the list of: regulatory, analytics, operational.|
