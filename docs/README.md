@@ -356,7 +356,7 @@ The UX label is the label used in the UI and other user experiences. It is not l
 stakeholders||No|Array
 stakeholders.username||No|The stakeholder's username or email.|
 stakeholders.role||No|The stakeholder's job role; Examples might be owner, data steward. There is no limit on the role.|
-stakeholders.dateIn||No|The date when the user became a stakeholder|
+stakeholders.dateIn||No|The date when the user became a stakeholder.|
 stakeholders.dateOut||No|The date when the user ceased to be a stakeholder|
 stakeholders.replacedByUsername||No|The username of the user who replaced the stakeholder|
 
