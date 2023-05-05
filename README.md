@@ -24,7 +24,7 @@ A data contract defines the agreement between a data producer and consumer. A da
 *Figure 1: illustration of a data contract, its principal contributors, sections, and usage.*
 
 ### How do we use Data Contracts at PayPal?
-PayPal uses data contracts in many way, but this [article](https://medium.com/paypal-tech/the-next-generation-of-data-platforms-is-the-data-mesh-b7df4b825522) from the [PayPal Technology blog](https://medium.com/paypal-tech) gives a good introduction.
+PayPal uses data contracts in many ways, but this [article](https://medium.com/paypal-tech/the-next-generation-of-data-platforms-is-the-data-mesh-b7df4b825522) from the [PayPal Technology blog](https://medium.com/paypal-tech) gives a good introduction.
 
 ## Contributing to the project
 Check out the [CONTRIBUTING](https://github.com/paypal/data-contract-template/blob/main/CONTRIBUTING.md) file.
