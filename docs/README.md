@@ -29,6 +29,7 @@ datasetDomain: seller # Domain
 quantumName: my quantum # Data product name
 userConsumptionMode: Analytical
 version: 1.1.0 # Version follows semantic versioning
+templateVersion: 2.2.0 # Version follows semantic versioning
 status: current
 uuid: 53581432-6c55-4ba2-a65f-72344a91553a
 
@@ -71,10 +72,11 @@ tags: null
 
 |Key|UX label|Required|Description|
 | --- | --- | --- | --- | 
-| version|Version|Yes|Current version of the data contract.|
-| uuid|Identifier|Yes| A unique identifier used to reduce the risk of dataset name collisions; initially the UUID will be created using a UUID generator tool ([example](https://www.uuidgenerator.net/)). However, we may want to develop a method that accepts a seed value using a combination of fields–such as name, kind and source–to create a repeatable value.|
-|username|Username|Yes|User credentials for connecting to the dataset; how the credentials will be stored/passed is outside of the scope of the contract.|
-|userConsumptionMode|Consumption mode|No|List of data modes for which the dataset may be used.  Expected sample values might be Analytical or Operational. <br/>Note: in the future, this will probably be replaced by ports.|
+| version | Version | Yes | Current version of the data contract.|
+| templateVersion | Template version | No | Version of the template used to build data contract. Default value is v2.1.0. |
+| uuid | Identifier | Yes | A unique identifier used to reduce the risk of dataset name collisions; initially the UUID will be created using a UUID generator tool ([example](https://www.uuidgenerator.net/)). However, we may want to develop a method that accepts a seed value using a combination of fields–such as name, kind and source–to create a repeatable value. |
+| username | Username | Yes | User credentials for connecting to the dataset; how the credentials will be stored/passed is outside of the scope of the contract. |
+| userConsumptionMode | Consumption mode | No | List of data modes for which the dataset may be used.  Expected sample values might be Analytical or Operational. <br/>Note: in the future, this will probably be replaced by ports. |
 |type|Type|Yes|Identifies the types of objects in the dataset.  For BigQuery the expected value would be tables.
 tenant|Tenant|No|Indicates the property the data is primarily associated with. Value is case insensitive. For PayPal, the expected sample values might be PayPal, Venmo, PPWC, etc.|
 tags|Tags|No|a list of tags that may be assigned to the dataset, table or column; the `tags` keyword may appear at any level.
