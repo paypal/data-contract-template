@@ -28,8 +28,8 @@ This section contains general information about the contract.
 datasetDomain: seller # Domain
 quantumName: my quantum # Data product name
 userConsumptionMode: Analytical
-version: 1.1.0 # Version follows semantic versioning
-templateVersion: 2.2.0 # Version follows semantic versioning
+version: 1.1.0 # Version (follows semantic versioning)
+templateVersion: 2.2.0 # Template version (follows semantic versioning)
 status: current
 uuid: 53581432-6c55-4ba2-a65f-72344a91553a
 
