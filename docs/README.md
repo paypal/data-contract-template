@@ -77,8 +77,8 @@ tags: null
 | uuid | Identifier | Yes | A unique identifier used to reduce the risk of dataset name collisions; initially the UUID will be created using a UUID generator tool ([example](https://www.uuidgenerator.net/)). However, we may want to develop a method that accepts a seed value using a combination of fields–such as name, kind and source–to create a repeatable value. |
 | username | Username | Yes | User credentials for connecting to the dataset; how the credentials will be stored/passed is outside of the scope of the contract. |
 | userConsumptionMode | Consumption mode | No | List of data modes for which the dataset may be used.  Expected sample values might be Analytical or Operational. <br/>Note: in the future, this will probably be replaced by ports. |
-|type|Type|Yes|Identifies the types of objects in the dataset.  For BigQuery the expected value would be tables.
-tenant|Tenant|No|Indicates the property the data is primarily associated with. Value is case insensitive. For PayPal, the expected sample values might be PayPal, Venmo, PPWC, etc.|
+| type | Type | Yes | Identifies the types of objects in the dataset.  For BigQuery the expected value would be tables. |
+| tenant | Tenant | No | Indicates the property the data is primarily associated with. Value is case insensitive. For PayPal, the expected sample values might be PayPal, Venmo, PPWC, etc. |
 tags|Tags|No|a list of tags that may be assigned to the dataset, table or column; the `tags` keyword may appear at any level.
 status|Status|Yes|Current status of the dataset.
 sourceSystem|Source system|Yes|The system where the dataset resides.  Expected value is bigQuery
