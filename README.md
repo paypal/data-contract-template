@@ -31,3 +31,10 @@ Check out the [CONTRIBUTING](https://github.com/paypal/data-contract-template/bl
 
 If you are a PayPal employee or contractor, contact us via Slack at `#rosewall-help`.
 
+## Articles about PayPal's Data Contract Template
+
+ * 2023-05-06 - [PayPal เปิด Data Contract เป็น Open Source Template ให้ไปใช้งานกัน](https://discuss.dataengineercafe.io/t/paypal-data-contract-open-source-template/581/1)
+ * 2023-05-01 - [PayPal open sources its data contract template](https://jgp.ai/2023/05/01/paypal-open-sources-its-data-contract-template/)
+
+If you spot an article about the PayPal's Data Contract Template, make a pull request! 
+
