@@ -47,7 +47,7 @@ productFeedbackUrl: null
 # Physical parts / GCP / BigQuery specific
 sourcePlatform: googleCloudPlatform
 sourceSystem: bigQuery
-datasetProject: edw # BQ dataset
+datasetProject: edw # BQ project
 datasetName: access_views # BQ dataset
 
 kind: virtualDataset
