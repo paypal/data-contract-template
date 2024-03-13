@@ -1,10 +1,12 @@
+# Template for Data Contract
+
+---
+
 This project has evolved and is now called [**Open Data Contract Standard (ODCS)**](https://github.com/bitol-io/open-data-contract-standard), part of [**Bitol**](https://bitol.io/), a project hosted by [**The Linux Foundation**](https://lfaidata.foundation/) and [**AIDA User Group**](https://aidaug.org/).
 
 The new repository can be found at: [https://github.com/bitol-io/open-data-contract-standard](https://github.com/bitol-io/open-data-contract-standard).
 
 ---
-
-# Template for Data Contract
 
 Welcome! Thanks for your interest and for taking the time to come here! ❤️
 
